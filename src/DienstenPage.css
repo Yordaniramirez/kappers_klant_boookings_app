@@ -1,0 +1,31 @@
+.App-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-size: cover;
+  }
+  
+  .category-card {
+    width: 100%;
+    max-width: 200px;
+    margin: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .category-card img {
+    display: block;
+    margin: 0 auto;
+    width: 100%; 
+    height: auto; 
+    object-fit: cover; 
+  } 
+  
+  .category-title {
+    margin-top: 10px;
+  }
+  
