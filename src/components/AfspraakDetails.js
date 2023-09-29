@@ -95,7 +95,8 @@ function AfspraakDetails() {
       price: price,
       dienst: dienst,
       kapper: kapper,
-      selectedDate: selectedDate
+      // Converteer het Date object naar een ISO string voordat je het opslaat
+      selectedDate: selectedDate.toISOString()
     };
   
     // Opslaan in localStorage
@@ -105,7 +106,7 @@ function AfspraakDetails() {
     
     navigate('/login');
   };
-  
+
 
   return (
     <div className="afspraak-details-container">

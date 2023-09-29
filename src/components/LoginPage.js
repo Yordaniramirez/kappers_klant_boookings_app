@@ -27,7 +27,8 @@ function LoginPage() {
   
         if (pendingAppointment) {
           const afspraakDetails = JSON.parse(pendingAppointment);
-  
+             
+          afspraakDetails.selectedDate = new Date(afspraakDetails.selectedDate);
           // Debug: Log the afspraakDetails
           console.log("Parsed Afspraak Details:", afspraakDetails);
   

@@ -52,14 +52,14 @@ function UserDashboard() {
   };
 
   const formatDateAndTime = (dateObject) => {
-    if (dateObject && dateObject.seconds) {
+   if (dateObject && dateObject.seconds) {
       const date = new Date(dateObject.seconds * 1000);
       return {
         date: date.toLocaleDateString(),
         time: date.toLocaleTimeString(),
       };
-    }
-    return { date: "Onbekende datum", time: "Onbekende tijd" };
+   }
+   return { date: "Onbekende datum", time: "Onbekende tijd" };
   };
 
   console.log(appointments);
