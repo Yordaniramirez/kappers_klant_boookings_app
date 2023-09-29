@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import './UserDashboard.css';
+import './CSS_STYLES/UserDashboard.css';
 import { db } from "./firebase/config";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
 
 function UserDashboard() {
   const [appointments, setAppointments] = useState([]);
@@ -21,7 +20,6 @@ function UserDashboard() {
     });
 
     return () => {
-      // Clean up the listener
       unsubscribe();
     };
   }, [auth]);
@@ -29,45 +27,60 @@ function UserDashboard() {
   const getAppointments = async (userId) => {
     try {
       console.log("Fetching appointments for user:", userId);
-
       const appointmentsQuery = query(
         collection(db, "afspraak"),
         where("userId", "==", userId)
       );
 
+      
       const querySnapshot = await getDocs(appointmentsQuery);
 
+      console.log("Query snapshot size:", querySnapshot.size);
+      
       const appointmentsData = [];
+
+      
       querySnapshot.forEach((doc) => {
+        console.log("Doc Data:", doc.data());
         appointmentsData.push({ id: doc.id, ...doc.data() });
       });
-
       console.log("Appointments data:", appointmentsData);
-
       setAppointments(appointmentsData);
     } catch (error) {
       console.error("Error fetching appointments:", error);
     }
   };
 
-  const formatDate = (dateObject) => {
-    return new Date(dateObject.seconds * 1000).toLocaleString();
+  const formatDateAndTime = (dateObject) => {
+    if (dateObject && dateObject.seconds) {
+      const date = new Date(dateObject.seconds * 1000);
+      return {
+        date: date.toLocaleDateString(),
+        time: date.toLocaleTimeString(),
+      };
+    }
+    return { date: "Onbekende datum", time: "Onbekende tijd" };
   };
 
+  console.log(appointments);
   return (
     <div className="user-dashboard-container">
       <h2>Mijn Afspraken</h2>
       <ul>
-        {appointments.map((appointment) => (
-          <li key={appointment.id}>
-            <div>
-              <h3>{appointment.kapper}</h3>
-              <p>Datum: {formatDate(appointment.date)}</p>
-              <p>Dienst: {appointment.dienst}</p>
-              <p>Prijs: {appointment.price} euro</p>
-            </div>
-          </li>
-        ))}
+        {appointments.map((appointment) => {
+          const { date, time } = formatDateAndTime(appointment.date);
+          return (
+            <li key={appointment.id}>
+              <div>
+                <h3>Kapper: {appointment.kapper}</h3>
+                <p>Datum: {date}</p>
+                <p>Tijd: {time}</p>
+                <p>Dienst: {appointment.dienst || "Onbekende dienst"}</p>
+                <p>Prijs: {typeof appointment.price === 'number' ? appointment.price : 'Onbekende prijs'} euro</p>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

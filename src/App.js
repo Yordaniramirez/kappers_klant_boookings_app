@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import './App.css';
 import CategoryCard from "./components/CategoryCard";
-import DienstenPage from './DienstenPage';
+import DienstenPage from './components/DienstenPage';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import KapperKiezenPage from "./KapperKiezenPage";
-import AfspraakDetails from "./AfspraakDetails";
-import Bevestiging from "./Bevestiging";
+import KapperKiezenPage from "./components/KapperKiezenPage";
+import AfspraakDetails from "./components/AfspraakDetails";
+import Bevestiging from "./components/Bevestiging";
 import { useNavigate } from "react-router-dom";
-import { AfspraakProvider } from "./AfspraakContext";
-import Registratie from "./Registratie";
-import LoginPage from "./LoginPage";
-import UserDashboard from "./UserDashboard";
+import { AfspraakProvider } from "./components/AfspraakContext";
+import Registratie from "./components/Registratie";
+import LoginPage from "./components/LoginPage";
+import UserDashboard from "./components/UserDashboard";
+import KapperAfsprakenPage from "./components/KapperAfsprakenPage";
 
 
-import manImage from './images/Black Men Fashion Magazine Cover Your Story (200 x 300 px).png';
-import vrouwImage from './images/women.jpg';
-import kinderenImage from './images/kinderen.jpg';
+
+import manImage from './components/images/Black Men Fashion Magazine Cover Your Story (200 x 300 px).png';
+import vrouwImage from './components/images/women.jpg';
+import kinderenImage from './components/images/kinderen.jpg';
 
 function HomePage() {
   
@@ -27,10 +29,12 @@ function HomePage() {
 
   return (
     <>
+     
       <CategoryCard image={manImage} title="Man" onClick={() => handleCategoryClick('Man')} />
       <CategoryCard image={vrouwImage} title="Vrouw" onClick={() => handleCategoryClick('Vrouw')} />
       <CategoryCard image={kinderenImage} title="Kinderen" onClick={() => handleCategoryClick('Kinderen')} />
       <Link to="/login" className="login-button">Afspraak Beheren</Link> {/* Voeg className "login-button" toe */}
+      <Link to="/kapper-afspraken" >Alleen voor kappers</Link> {/* Voeg className "login-button" toe */}
 
     </>
     
@@ -53,6 +57,7 @@ function App() {
             <Route path="/registratie" element={<Registratie />} />
             <Route path="/login" element={<LoginPage />} /> 
             <Route path="/user-dashboard" element={<UserDashboard />} /> {/* Voeg deze route toe */}
+            <Route path="/kapper-afspraken" element={<KapperAfsprakenPage />} />
             <Route path="/" element={<HomePage />} />
           </Routes>
         </header>

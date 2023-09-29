@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom'; // <- Importeer useParams
-import './DienstenPage.css';
+import './CSS_STYLES/DienstenPage.css';
 import { useNavigate } from 'react-router-dom';
 
 import vrouwenKnippen from './images/haar-knippenvrouwen.jpg';
@@ -67,7 +67,10 @@ function DienstenPage({ setSelectedDienst }) {
 
   return (
     <div className="App-header">
+      <button onClick={() => navigate(-1)}>Terug</button>
       <h2 className="category-title">Diensten voor {category}</h2>
+      
+       
       {services.map(service => (
         <div className="category-card" key={service.name} onClick={() => handleServiceClick(service.name)}>
 
@@ -76,6 +79,8 @@ function DienstenPage({ setSelectedDienst }) {
         </div>
       ))}
     </div>
+    
+
   );
 }
 

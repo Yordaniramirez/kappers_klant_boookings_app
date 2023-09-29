@@ -1,12 +1,12 @@
 import React from 'react';
-import './DienstenPage.css';
+import './CSS_STYLES/DienstenPage.css';
 import { useNavigate } from 'react-router-dom';
 
 // Dummy kapper afbeeldingen
 import Mohamed from './images/Men.png';
 import Jasper from './images/Jasper-kapper.png';
-import Joselito from './images/Joselito-kapper.png';
-import Shenice from './images/Scheren.png';
+import Joselito from './images/Mohamed-kapper.png';
+import Yailin from './images/Shenice-Kapster.png';
 
 function KapperKiezenPage({ selectedDienst }) {
 
@@ -29,13 +29,14 @@ function KapperKiezenPage({ selectedDienst }) {
       image: Joselito
     },
     {
-      name: 'Shenice',
-      image: Shenice
+      name: 'Yailin',
+      image: Yailin
     },
   ];
 
   return (
     <div className="App-header">
+       <button onClick={() => navigate(-1)}>Terug</button>
       <h2 className="category-title">Kies een kapper</h2>
       {kappers.map(kapper => (
       <div className="category-card" key={kapper.name} onClick={() => handleServiceClick(kapper.name)}>
