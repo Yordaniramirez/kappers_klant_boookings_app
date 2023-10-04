@@ -33,7 +33,7 @@ function HomePage() {
       <CategoryCard image={manImage} title="Man" onClick={() => handleCategoryClick('Man')} />
       <CategoryCard image={vrouwImage} title="Vrouw" onClick={() => handleCategoryClick('Vrouw')} />
       <CategoryCard image={kinderenImage} title="Kinderen" onClick={() => handleCategoryClick('Kinderen')} />
-      <Link to="/login" className="login-button">Afspraak Beheren</Link> {/* Voeg className "login-button" toe */}
+      <Link to="/login" className="appointment-button">Afspraak Beheren</Link> {/* Voeg className "login-button" toe */}
       <Link to="/kapper-afspraken" >Alleen voor kappers</Link> {/* Voeg className "login-button" toe */}
 
     </>

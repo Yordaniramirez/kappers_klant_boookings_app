@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { addAppointmentToFirestore, createCustomerInFirestore, registerUser } from './firebase/config';
 import './CSS_STYLES/Registratie.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function Registratie() {
   const [email, setEmail] = useState('');
@@ -10,6 +12,9 @@ function Registratie() {
   const [name, setName] = useState('');
   const location = useLocation(); // Haal de locatie op om gegevens vanuit de vorige pagina te ontvangen
   const afspraakGegevens = location.state ? location.state.afspraakGegevens : null; // Haal afspraakgegevens op uit de locatie
+  const [isRegistered, setIsRegistered] = useState(false);  // Nieuwe state variabele
+  const navigate = useNavigate();
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -20,6 +25,8 @@ function Registratie() {
       console.log("User:", user);
       console.log("User ID:", user.uid);
       console.log(`User ${user.uid} registered. Attempting to add to Firestore.`);
+
+      
       
       await createCustomerInFirestore(user.uid, name, email);
       console.log(`User ${user.uid} added to Firestore.`);
@@ -39,6 +46,9 @@ function Registratie() {
       }
     
       setMessage(`Registratie gelukt voor ${user.email}. Controleer uw e-mail om uw account te verifiëren.`);
+
+      setIsRegistered(true);  // Zet op true na succesvolle registratie
+
     } catch (error) {
       console.error("Error during registration:", error);
       setMessage(`Registratie fout: ${error.message}`);
@@ -47,6 +57,9 @@ function Registratie() {
 
   return (
     <div className="registratieContainer">
+
+     
+
       <form onSubmit={handleRegister} className="registratieForm">
         <h2>Registreren</h2>
 
@@ -68,6 +81,16 @@ function Registratie() {
         <button type="submit">Registreren</button>
       </form>
       {message && <p className="message">{message}</p>}
+
+       {/* Toon knoppen alleen als de registratie succesvol was */}
+       {isRegistered && (
+        <>
+          <button onClick={() => navigate('/')}>Terug naar de Homepage</button>
+          <button onClick={() => navigate('/login')}>Inloggen</button>
+        </>
+      )}
+
+      
     </div>
   );
 }
