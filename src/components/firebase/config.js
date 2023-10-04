@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile, signInWithEmailAndPassword} from "firebase/auth";
 //import { Timestamp } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -61,7 +61,6 @@ export async function createCustomerInFirestore(userId, name, email) {
     throw error;
   }
 }
-
 
 
 

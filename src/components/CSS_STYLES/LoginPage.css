@@ -20,7 +20,8 @@
 }
 
 .login-form input[type="text"],
-.login-form input[type="password"] {
+.login-form input[type="password"],
+.login-form input[type="email"] {
   padding: 10px;
   margin-bottom: 16px;
   border: 1px solid #ccc;
@@ -28,11 +29,19 @@
 }
 
 /* Geef wat meer ruimte aan de knoppen */
-.login-button {
-  margin-top: 10px;
+.button-container {
+  display: flex;
+  justify-content: space-between;
 }
 
-.login-button {
+.login-button,
+.password-reset-button {
+  margin-top: 10px;
+  width: 48%;  /* Aangepast zodat beide knoppen in één rij passen */
+}
+
+.login-button,
+.password-reset-button {
   background-color: #007BFF;
   color: white;
   border: none;
@@ -43,7 +52,8 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.login-button:hover {
+.login-button:hover,
+.password-reset-button:hover {
   background-color: #0056b3;
 }
 
