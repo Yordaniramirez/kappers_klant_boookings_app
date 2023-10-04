@@ -25,7 +25,7 @@ export async function addAppointmentToFirestore({ userId, kapper,  dienst, price
   console.log("Received values in addAppointmentToFirestore:", userId, kapper,  dienst, price, selectedDate);
   
   // Controleer of alle velden aanwezig zijn
-  if (!userId || !kapper|| !price || !dienst || !selectedDate) {
+  if ( !kapper|| !price || !dienst || !selectedDate) {
     console.error('One or more fields are undefined');
     return;
   }

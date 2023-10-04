@@ -1,79 +1,70 @@
 import React, { useState } from "react";
-import { signInUserWithEmailAndPassword, addAppointmentToFirestore } from "./firebase/config";
-import './CSS_STYLES/LoginPage.css';
-import { useNavigate} from "react-router-dom";
-
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  // const location = useLocation();
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [resetPassword, setResetPassword] = useState(false);
+  const auth = getAuth();
 
-  // In de loginfunctie, na succesvolle login
+  // Functie om de gebruiker in te loggen
   const handleLogin = () => {
-    signInUserWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Debug: Log userCredential for more details
-        console.log("User Credential:", userCredential);
-  
-        // Haal de 'pending' afspraak op uit localStorage
-        const pendingAppointment = localStorage.getItem('pendingAppointment');
-  
-        // Debug: Log the pendingAppointment
-        console.log("Pending Appointment:", pendingAppointment);
-  
-        if (pendingAppointment) {
-          const afspraakDetails = JSON.parse(pendingAppointment);
-             
-          afspraakDetails.selectedDate = new Date(afspraakDetails.selectedDate);
-          // Debug: Log the afspraakDetails
-          console.log("Parsed Afspraak Details:", afspraakDetails);
-  
-          const userId = userCredential.user.uid;
-  
-          // Voeg afspraak toe aan Firestore
-          addAppointmentToFirestore({ userId, ...afspraakDetails });
-  
-          // Debug: Validate the afspraakDetails
-          console.log("Sending to Firestore:", { userId, ...afspraakDetails });
-  
-          // Verwijder de 'pending' afspraak uit localStorage
-          localStorage.removeItem('pendingAppointment');
-        }
-  
-        // Navigeer naar dashboard
-        navigate("/user-dashboard");
+        // Inloggen succesvol
+        console.log("Inloggen succesvol:", userCredential);
       })
       .catch((error) => {
-        // Inloggen mislukt, toon de foutmelding aan de gebruiker
-        setError(error.message);
-        console.error("Inloggen fout:", error.message); // Log the error message
+        console.error("Fout bij inloggen:", error);
+        // Toon eventueel een foutmelding aan de gebruiker
       });
   };
-  
 
-  
+  // Functie om wachtwoord reset e-mail te sturen
+  const handleResetPassword = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        console.log("Wachtwoord reset e-mail verstuurd");
+        setResetPassword(false);
+        // Toon een bericht aan de gebruiker dat een e-mail is verzonden
+      })
+      .catch((error) => {
+        console.error("Fout bij versturen wachtwoord reset e-mail:", error);
+        // Toon een foutmelding aan de gebruiker
+      });
+  };
 
   return (
-    <div className="login-container">
-      <h2>Inloggen</h2>
-      <input
-        type="email"
-        placeholder="E-mail"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Wachtwoord"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Inloggen</button>
-      {error && <p className="error-message">{error}</p>}
+    <div>
+      {resetPassword ? (
+        <>
+          <input
+            type="email"
+            placeholder="Voer uw e-mailadres in"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button onClick={handleResetPassword}>Stuur wachtwoord reset e-mail</button>
+          <button onClick={() => setResetPassword(false)}>Terug naar inloggen</button>
+        </>
+      ) : (
+        <>
+          <input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Wachtwoord"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={handleLogin}>Inloggen</button>
+          <button onClick={() => setResetPassword(true)}>Wachtwoord vergeten?</button>
+        </>
+      )}
     </div>
   );
 }

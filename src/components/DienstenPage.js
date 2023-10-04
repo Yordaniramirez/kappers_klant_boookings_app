@@ -26,41 +26,52 @@ function DienstenPage({ setSelectedDienst }) {
     services = [
       {
         name: 'Knippen',
-        image: vrouwenKnippen
+        image: vrouwenKnippen,
+        duration: 45 //duur minuten
       },
       {
         name: 'Drogen',
-        image: vrouwenDrogen
+        image: vrouwenDrogen,
+        duration: 30 //minuten
+
       }
     ];
   } else if (category === 'Man') {
     services = [
       {
         name: 'Knippen heren',
-        image: mannenKnippen
+        image: mannenKnippen,
+        duration: 60
       },
       {
         name: 'Scheren heren',
-        image: mannenScheren
+        image: mannenScheren,
+        duration: 60 // Duur in minuten
+
       },
       {
         name: 'Baard en scheren',
-        image: mannenBaardScheren
+        image: mannenBaardScheren,
+        duration: 75 // Duur in minuten
       },
       {
         name: 'Contour',
-        image: mannenContour
+        image: mannenContour,
+        duration: 30 // Duur in minuten
       }
     ];
   } else if (category === 'Kinderen') {
     services = [
       {
         name: 'Knippen kinderen tot 12',
-        image: kinderenKnippenTot12Jaar
+        image: kinderenKnippenTot12Jaar,
+        duration: 30 // Duur in minuten
       },
+
       {
         name: 'Knippen kinderen 13 tot met 16',
-        image: kinderenKnippenVan12Tot16Jaar
+        image: kinderenKnippenVan12Tot16Jaar,
+        duration: 45 // Duur in minuten
       }
     ];
   }

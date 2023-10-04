@@ -2,11 +2,26 @@ import React, { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import './CSS_STYLES/UserDashboard.css';
 import { db } from "./firebase/config";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+
 
 function UserDashboard() {
   const [appointments, setAppointments] = useState([]);
   const auth = getAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful
+      console.log('User signed out');
+      navigate("/");  // Navigeert naar de homepage
+    }).catch((error) => {
+      // An error happened
+      console.error('Error signing out:', error);
+    });
+  };
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -66,6 +81,7 @@ function UserDashboard() {
   return (
     <div className="user-dashboard-container">
       <h2>Mijn Afspraken</h2>
+      <button onClick={handleSignOut}>Uitloggen</button>
       <ul>
         {appointments.map((appointment) => {
           const { date, time } = formatDateAndTime(appointment.date);
