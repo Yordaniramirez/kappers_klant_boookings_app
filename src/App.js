@@ -33,9 +33,10 @@ function HomePage() {
       <CategoryCard image={manImage} title="Man" onClick={() => handleCategoryClick('Man')} />
       <CategoryCard image={vrouwImage} title="Vrouw" onClick={() => handleCategoryClick('Vrouw')} />
       <CategoryCard image={kinderenImage} title="Kinderen" onClick={() => handleCategoryClick('Kinderen')} />
-      <Link to="/login" className="appointment-button">Afspraak Beheren</Link> {/* Voeg className "login-button" toe */}
-      <Link to="/kapper-afspraken" >Alleen voor kappers</Link> {/* Voeg className "login-button" toe */}
-
+      <div className="link-container">
+        <Link to="/login" className="special-link">Afspraak Beheren</Link>
+        <Link to="/kapper-afspraken" className="special-link">Alleen voor kappers</Link>
+      </div>
     </>
     
   );
@@ -47,8 +48,8 @@ function App() {
   return (
     <Router>
        <AfspraakProvider>
-      <div className="App">
-        <header className="App-header">
+      <div className="App-header">
+        <header className="category-container">
           <Routes>
             <Route path="/diensten/:category" element={<DienstenPage setSelectedDienst={setSelectedDienst} />} />
             <Route path="/kapper-kiezen" element={<KapperKiezenPage selectedDienst={selectedDienst} />} />

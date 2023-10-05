@@ -85,8 +85,8 @@ function Registratie() {
        {/* Toon knoppen alleen als de registratie succesvol was */}
        {isRegistered && (
         <>
-          <button onClick={() => navigate('/')}>Terug naar de Homepage</button>
-          <button onClick={() => navigate('/login')}>Inloggen</button>
+          <button  className="navigate-button" onClick={() => navigate('/')}>Terug naar de Homepage</button>
+          <button className="navigate-button" onClick={() => navigate('/login')}>Inloggen</button>
         </>
       )}
 

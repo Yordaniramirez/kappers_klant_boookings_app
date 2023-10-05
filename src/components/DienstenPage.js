@@ -78,18 +78,17 @@ function DienstenPage({ setSelectedDienst }) {
 
   return (
     <div className="App-header">
-      <button onClick={() => navigate(-1)}>Terug</button>
-      <h2 className="category-title">Diensten voor {category}</h2>
-      
-       
+    <button onClick={() => navigate(-1)}>Terug</button>
+    <h2 className="category-title">Diensten voor {category}</h2>
+    <div className="service-container"> {/* Nieuwe container voor de kaarten */}
       {services.map(service => (
         <div className="category-card" key={service.name} onClick={() => handleServiceClick(service.name)}>
-
           <h3>{service.name}</h3>
           <img src={service.image} alt={service.name} />
         </div>
       ))}
-    </div>
+    </div> 
+  </div>
     
 
   );

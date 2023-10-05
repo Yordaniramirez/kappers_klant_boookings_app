@@ -177,7 +177,7 @@ function AfspraakDetails() {
         onChange={date => setSelectedDate(date)}
         showTimeSelect
         timeFormat="HH:mm"
-        timeIntervals={40}
+        timeIntervals={30}
         timeCaption="Tijd"
         dateFormat="MMMM d, yyyy HH:mm"
         minDate={new Date()}

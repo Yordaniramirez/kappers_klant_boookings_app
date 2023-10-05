@@ -53,4 +53,22 @@
     font-weight: bold;
     color: red;
   }
+
+  /* Nieuwe stijlen voor de navigatieknoppen */
+.navigate-button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navigate-button:hover {
+  background-color: #0056b3;
+}
+
   
