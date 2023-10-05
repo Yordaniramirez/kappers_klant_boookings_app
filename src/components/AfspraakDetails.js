@@ -1,4 +1,4 @@
-//Importeer de benodigde depensies
+// Importeer de benodigde bibliotheken en modules
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate} from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -8,26 +8,25 @@ import { useAfspraak } from "./AfspraakContext";
 import { addAppointmentToFirestore, db, auth } from "./firebase/config";
 import { query, where, getDocs, collection } from "firebase/firestore";
 
-// Definieer de function AfspraakDetails
+// Definieer het hoofdcomponent AfspraakDetails
 function AfspraakDetails() {
  
-// Gebruik de aangepaste hook useAfspraak om de functie `setAfspraakDetails` te verkrijgen
+// Haal de setAfspraakDetails-functie uit de AfspraakContext
   const { setAfspraakDetails } = useAfspraak();
 
-// Initialiseer navigatieobject voor routewijzigingen
+ // Initialiseren van de navigate-functie voor het veranderen van routes
   const navigate = useNavigate();
  
-// Destructureer de `dienst` en `kapper` params van de URL
-  const { dienst, kapper } = useParams();  // Hier krijg je kapper, en welke dienst
+// Haal de parameters dienst en kapper uit de URL
+  const { dienst, kapper } = useParams(); 
   
-  // Initialiseer statusvariabelen. Toestandsvariabelen zijn variabelen die de toestand van een systeem op een bepaald moment definiëren. Ze worden gebruikt om de kenmerken te beschrijven van een systeem dat in de loop van de tijd kan veranderen.
+  // Initialiseren van de state-variabelen
   const [price, setPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [busyDays, setBusyDays] = useState([]);
 
  
-  // Bijwerking om bestaande afspraken op te halen en drukke dagen te berekenen
-  //Wat doet useEffect? Door deze Hook te gebruiken, vertel je React dat je component iets moet doen na het renderen. React onthoudt de functie die u hebt doorgegeven (we noemen dit ons “effect”) en roept deze later aan na het uitvoeren van de DOM-updates
+   // Gebruik useEffect om acties uit te voeren bij het laden van het component
   useEffect(() => {
     const servicePrices = {
     // Voorgedefinieerde serviceprijzen
@@ -40,11 +39,13 @@ function AfspraakDetails() {
       'Knippen kinderen 13 tot met 16': 28,
       'Knippen kinderen tot 12': 25,
     };
-    // Update de prijs op basis van de gekozen dienst
+
+    // Stel de prijs in op basis van de gekozen dienst
     setPrice(servicePrices[dienst] );
     
-    // Haal afspraken op uit Firestore
+     // Roep een functie aan om de bezette afspraken op te hale
     async function fetchAppointments() {
+
       // Bereid een Firestore-aanvraag voor om afspraken te krijgen bij een kapper/afspraak
       const afspraakCollection = collection(db, "afspraak");
       const q = query(afspraakCollection, where("kapper", "==", kapper));
@@ -79,15 +80,17 @@ function AfspraakDetails() {
     return busyTimes;
   };
   
-
+    // Deze functie wordt aangeroepen om een afspraak te maken zonder registratie
   const handleAfspraakZonderRegistratie = async () => {
-
+    
+     // Controleer of het gekozen tijdstip al bezet is
     const isBusy = busyDays.some(busyDate => 
       busyDate.getHours() === selectedDate.getHours() &&
       busyDate.getMinutes() === selectedDate.getMinutes() &&
       busyDate.toDateString() === selectedDate.toDateString()
     );
-
+    
+    // Als het tijdstip bezet is, geef een waarschuwing
     if (isBusy) {
       alert("Dit tijdslot is al bezet. Kies een andere tijd.");
       return;
@@ -104,7 +107,7 @@ function AfspraakDetails() {
   
   
 
-
+    // Sla de details van de afspraak op
     setAfspraakDetails({
       price: price,
       dienst: dienst,
@@ -114,7 +117,7 @@ function AfspraakDetails() {
       
     });
 
-  
+     // Probeer de afspraak toe te voegen aan Firestore
     try {
       const user = auth.currentUser;
       const userId = user ? user.uid : null;
@@ -131,7 +134,7 @@ function AfspraakDetails() {
     }
 
     
-
+ // Ga naar de bevestigingspagina
     navigate('/bevestiging-zonder-registratie');
   };
 

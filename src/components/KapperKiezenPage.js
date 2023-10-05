@@ -3,10 +3,10 @@ import './CSS_STYLES/DienstenPage.css';
 import { useNavigate } from 'react-router-dom';
 
 // Dummy kapper afbeeldingen
-import Mohamed from './images/Men.png';
-import Jasper from './images/Jasper-kapper.png';
-import Joselito from './images/Mohamed-kapper.png';
-import Yailin from './images/Shenice-Kapster.png';
+import Mohamed from './images/Mohamed-kapper.jpg';
+import Jasper from './images/jasper-kapper.jpg';
+import Joselito from './images/joselito-kapper.jpg';
+import Yailin from './images/Yailin-Kapster.jpg';
 
 function KapperKiezenPage({ selectedDienst }) {
 

@@ -23,23 +23,36 @@ function KapperAfsprakenPage() {
       console.error("Fout bij ophalen kappers:", error);
     }
   };
-
   const getAfspraken = async () => {
     try {
       const afsprakenQuery = query(collection(db, "afspraak"));
-
+  
       const querySnapshot = await getDocs(afsprakenQuery);
       const afsprakenData = [];
-
+  
       querySnapshot.forEach((doc) => {
         afsprakenData.push({ id: doc.id, ...doc.data() });
       });
-
+  
+      // Sorteer de afspraken op datum in aflopende volgorde (nieuwste eerst)
+      afsprakenData.sort((a, b) => {
+        const dateA = new Date(a.date.seconds * 1000);
+        const dateB = new Date(b.date.seconds * 1000);
+  
+        // Zet tijd van beide datums naar middernacht voor de vergelijking
+        dateA.setHours(0, 0, 0, 0);
+        dateB.setHours(0, 0, 0, 0);
+  
+        // Sorteer in aflopende volgorde
+        return dateB.getTime() - dateA.getTime();
+      });
+  
       setAfspraken(afsprakenData);
     } catch (error) {
       console.error("Fout bij ophalen afspraken:", error);
     }
   };
+  
 
   useEffect(() => {
     getAfspraken();
@@ -55,20 +68,18 @@ function KapperAfsprakenPage() {
     transformedKappers[kapper.naam] = kapper;
   });
 
-  const formatFirestoreDate = (timestamp) => {
+  const formatDate = (timestamp) => {
     if (timestamp && timestamp.seconds) {
       const date = new Date(timestamp.seconds * 1000);
-      return date.toLocaleString();
+      return date.toLocaleDateString(); // Alleen de datum
     }
     return "Onbekende datum";
   };
 
-  const formatFirestoreTime = (timestamp) => {
+  const formatTime = (timestamp) => {
     if (timestamp && timestamp.seconds) {
       const date = new Date(timestamp.seconds * 1000);
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      return `${hours}:${minutes}`; // Dit zal een tijd als "13:30" opleveren
+      return date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}); // Alleen de tijd
     }
     return "Onbekende tijd";
   };
@@ -91,11 +102,11 @@ function KapperAfsprakenPage() {
         <tbody>
           {afspraken.map((afspraak) => (
             <tr key={afspraak.id}>
-              <td>{formatFirestoreDate(afspraak.date)}</td>
-              <td>{formatFirestoreTime(afspraak.date)}</td>
+              <td>{formatDate(afspraak.date)}</td>
+              <td>{formatTime(afspraak.date)}</td>
               <td>{afspraak.kapper || "Onbekende kapper"}</td>
               <td>{afspraak.dienst}</td>
-              <td>{afspraak.price}</td>
+              <td>{`${afspraak.price} €`}</td>
             </tr>
           ))}
         </tbody>

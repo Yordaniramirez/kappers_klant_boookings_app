@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import vrouwenKnippen from './images/haar-knippenvrouwen.jpg';
 import vrouwenDrogen from './images/Fohnvrouwen.jpg';
-import mannenKnippen from './images/knippenheren.png';
-import mannenScheren from './images/Scheren.png';
-import mannenBaardScheren from './images/BaarenScheren.png';
-import mannenContour from './images/contour.jpg';
+import mannenKnippen from './images/Herenknippen.jpg';
+import mannenScheren from './images/HerenScheren.jpg';
+import mannenBaardScheren from './images/BaardEnScheren.jpg';
+import mannenContour from './images/Contour2.jpg';
 import kinderenKnippenTot12Jaar from './images/kinderentot12.jpg';
 import kinderenKnippenVan12Tot16Jaar from './images/vanaf12tot16.jpg';
 

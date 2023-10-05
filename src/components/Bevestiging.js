@@ -5,7 +5,7 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return { date: 'Onbekende datum', time: 'Onbekende tijd' };
     const formattedDate = date.toLocaleDateString();
-    const formattedTime = date.toLocaleTimeString();
+    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Alleen uren en minuten
     return { date: formattedDate, time: formattedTime };
 }
 
@@ -37,7 +37,7 @@ function Bevestiging(props) {
                         <td style={{ border: '1px solid black', padding: '10px' }}>{afspraakDetails.dienst}</td>
                         <td style={{ border: '1px solid black', padding: '10px' }}>{formattedDateTime.date}</td>
                         <td style={{ border: '1px solid black', padding: '10px' }}>{formattedDateTime.time}</td>
-                        <td style={{ border: '1px solid black', padding: '10px' }}>€{afspraakDetails.price}</td>
+                        <td style={{ border: '1px solid black', padding: '10px' }}>{afspraakDetails.price } €</td>
                     </tr>
                 </tbody>
             </table>
