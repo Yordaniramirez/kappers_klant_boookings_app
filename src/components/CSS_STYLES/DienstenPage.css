@@ -50,3 +50,22 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* ... bestaande stijlen ... */
+
+.back-button {
+  width: 120px;
+  background-color: #f1f1f1;
+  color: black;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: blue; /* Of welke kleur je ook wilt */
+  color: white; /* Tekstkleur wanneer erover gehoverd wordt */
+}
+
+/* ... overige stijlen ... */

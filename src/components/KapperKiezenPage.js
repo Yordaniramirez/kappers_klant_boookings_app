@@ -36,8 +36,9 @@ function KapperKiezenPage({ selectedDienst }) {
 
   return (
     <div className="App-header">
-       <button onClick={() => navigate(-1)}>Terug</button>
+       <button className="back-button" onClick={() => navigate(-1)}>Terug</button>
       <h2 className="category-title">Kies een kapper</h2>
+      <div className="service-container">
       {kappers.map(kapper => (
       <div className="category-card" key={kapper.name} onClick={() => handleServiceClick(kapper.name)}>
 
@@ -45,6 +46,7 @@ function KapperKiezenPage({ selectedDienst }) {
           <img src={kapper.image} alt={kapper.name} />
         </div>
       ))}
+    </div>
     </div>
   );
 }
