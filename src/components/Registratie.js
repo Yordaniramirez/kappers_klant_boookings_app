@@ -5,6 +5,8 @@ import './CSS_STYLES/Registratie.css';
 import { useNavigate } from 'react-router-dom';
 
 
+
+
 function Registratie() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +16,7 @@ function Registratie() {
   const afspraakGegevens = location.state ? location.state.afspraakGegevens : null; // Haal afspraakgegevens op uit de locatie
   const [isRegistered, setIsRegistered] = useState(false);  // Nieuwe state variabele
   const navigate = useNavigate();
-
+   
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -58,7 +60,7 @@ function Registratie() {
   return (
     <div className="registratieContainer">
 
-     
+        {message && <p className="message">{message}</p>}
 
       <form onSubmit={handleRegister} className="registratieForm">
         <h2>Registreren</h2>
@@ -80,7 +82,7 @@ function Registratie() {
 
         <button type="submit">Registreren</button>
       </form>
-      {message && <p className="message">{message}</p>}
+     
 
        {/* Toon knoppen alleen als de registratie succesvol was */}
        {isRegistered && (
@@ -96,3 +98,4 @@ function Registratie() {
 }
 
 export default Registratie;
+

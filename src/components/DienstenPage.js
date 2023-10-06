@@ -1,8 +1,11 @@
+// Importeer de benodigde modules en componenten
 import React from 'react';
-import { useParams } from 'react-router-dom'; // <- Importeer useParams
+import { useParams } from 'react-router-dom';  // Importeer useParams en useNavigate van react-router-dom
+import './CSS_STYLES/DienstenPage.css'; // Importeer de CSS stijlen
 import './CSS_STYLES/DienstenPage.css';
 import { useNavigate } from 'react-router-dom';
 
+// Importeer afbeeldingen
 import vrouwenKnippen from './images/haar-knippenvrouwen.jpg';
 import vrouwenDrogen from './images/Fohnvrouwen.jpg';
 import mannenKnippen from './images/Herenknippen.jpg';
@@ -13,17 +16,20 @@ import kinderenKnippenTot12Jaar from './images/kinderentot12.jpg';
 import kinderenKnippenVan12Tot16Jaar from './images/vanaf12tot16.jpg';
 
 function DienstenPage({ setSelectedDienst }) {
-  const { category } = useParams(); // <- Gebruik useParams om de category te verkrijgen
-  let services = [];
-  const navigate = useNavigate();
+  const { category } = useParams(); // // Gebruik useParams om de categorie parameter te krijgen
+  let services = []; // Initialiseer een lege array voor de diensten
+  const navigate = useNavigate(); // Gebruik de useNavigate hook voor navigatie
 
+   // Functie die wordt aangeroepen bij het klikken op een dienst
   const handleServiceClick = (selectedService) => {
-    setSelectedDienst(selectedService);
-    navigate("/kapper-kiezen");
+    setSelectedDienst(selectedService); // Update de geselecteerde dienst
+    navigate("/kapper-kiezen"); // Navigeer naar de volgende pagina
 }
 
+  // Logica voor het bepalen van de diensten op basis van de categorie
   if (category === 'Vrouw') {
     services = [
+      // Voeg diensten toe voor vrouwen
       {
         name: 'Knippen',
         image: vrouwenKnippen,
@@ -38,6 +44,7 @@ function DienstenPage({ setSelectedDienst }) {
     ];
   } else if (category === 'Man') {
     services = [
+       // Voeg diensten toe voor mannen
       {
         name: 'Knippen heren',
         image: mannenKnippen,
@@ -63,6 +70,7 @@ function DienstenPage({ setSelectedDienst }) {
   } else if (category === 'Kinderen') {
     services = [
       {
+         // Voeg diensten toe voor kinderen
         name: 'Knippen kinderen tot 12',
         image: kinderenKnippenTot12Jaar,
         duration: 30 // Duur in minuten
@@ -76,6 +84,7 @@ function DienstenPage({ setSelectedDienst }) {
     ];
   }
 
+  // Render de component
   return (
     <div className="App-header">
           <button className="back-button" onClick={() => navigate(-1)}>Terug</button> {/* Nieuwe klasse toegevoegd */}

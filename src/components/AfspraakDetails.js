@@ -168,6 +168,7 @@ function AfspraakDetails() {
 
 
   return (
+     // Het daadwerkelijke JSX-component dat wordt weergegeven
     <div className="afspraak-details-container">
       <button onClick={() => navigate(-1)}>Terug</button>
       <h2>Afspraak Details</h2>
@@ -196,5 +197,5 @@ function AfspraakDetails() {
     </div>
   );
 }
-
+// Exporteer het component om het elders te kunnen gebruiken
 export default AfspraakDetails;
