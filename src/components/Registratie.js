@@ -66,7 +66,7 @@ function Registratie() {
         <h2>Registreren</h2>
 
         <div className="inputContainer">
-          <label>Naam:</label>
+          <label>Voornaam:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
 
