@@ -1,9 +1,9 @@
 // Importeer de benodigde modules en componenten
 import React from 'react';
-import { useParams } from 'react-router-dom';  // Importeer useParams en useNavigate van react-router-dom
+import { useParams, useNavigate } from 'react-router-dom';  // Importeer useParams en useNavigate van react-router-dom
 import './CSS_STYLES/DienstenPage.css'; // Importeer de CSS stijlen
 import './CSS_STYLES/DienstenPage.css';
-import { useNavigate } from 'react-router-dom';
+
 
 // Importeer afbeeldingen
 import vrouwenKnippen from './images/haar-knippenvrouwen.jpg';

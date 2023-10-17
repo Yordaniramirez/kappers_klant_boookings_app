@@ -1,3 +1,4 @@
+// Importeer benodigde modules en componenten
 import React, { useState } from "react";
 import './App.css';
 import CategoryCard from "./components/CategoryCard";
@@ -14,16 +15,19 @@ import UserDashboard from "./components/UserDashboard";
 import KapperAfsprakenPage from "./components/KapperAfsprakenPage";
 
 
-
+// HomePage Component
 import manImage from './components/images/Black Men Fashion Magazine Cover Your Story (200 x 300 px).png';
 import vrouwImage from './components/images/women.jpg';
 import kinderenImage from './components/images/kinderen.jpg';
 
 function HomePage() {
   
+   // Navigatie functie
   const navigate = useNavigate();
 
+   // Functie die wordt aangeroepen bij het klikken op een categorie
   const handleCategoryClick = (category) => {
+    console.log("Category:", category); 
     navigate(`/diensten/${category}`);
   }
 
@@ -42,6 +46,7 @@ function HomePage() {
   );
 }
 
+// Hoofd App Component
 function App() {
   const [selectedDienst, setSelectedDienst] = useState(null);
 

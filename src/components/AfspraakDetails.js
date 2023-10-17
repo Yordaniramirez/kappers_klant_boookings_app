@@ -19,7 +19,7 @@ function AfspraakDetails() {
  
 // Haal de parameters dienst en kapper uit de URL
   const { dienst, kapper } = useParams(); 
-  
+
   // Initialiseren van de state-variabelen
   const [price, setPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -29,6 +29,7 @@ function AfspraakDetails() {
    // Gebruik useEffect om acties uit te voeren bij het laden van het component
   useEffect(() => {
     const servicePrices = {
+
     // Voorgedefinieerde serviceprijzen
       'Knippen heren': 35,
       'Scheren heren': 25,
@@ -43,7 +44,7 @@ function AfspraakDetails() {
     // Stel de prijs in op basis van de gekozen dienst
     setPrice(servicePrices[dienst] );
     
-     // Roep een functie aan om de bezette afspraken op te hale
+     // Roep een functie aan om de bezette afspraken op te halen
     async function fetchAppointments() {
 
       // Bereid een Firestore-aanvraag voor om afspraken te krijgen bij een kapper/afspraak
