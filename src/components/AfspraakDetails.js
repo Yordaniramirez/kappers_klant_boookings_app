@@ -8,25 +8,32 @@ import { useAfspraak } from "./AfspraakContext";
 import { addAppointmentToFirestore, db, auth } from "./firebase/config";
 import { query, where, getDocs, collection } from "firebase/firestore";
 
+
 // Definieer het hoofdcomponent AfspraakDetails
+// Maak het hoofdscherm voor afspraakdetails
 function AfspraakDetails() {
  
-// Haal de setAfspraakDetails-functie uit de AfspraakContext
+
+ // Haal info uit AfspraakContext
   const { setAfspraakDetails } = useAfspraak();
 
  // Initialiseren van de navigate-functie voor het veranderen van routes
+ // Maak een navigatiehulp
   const navigate = useNavigate();
  
 // Haal de parameters dienst en kapper uit de URL
+// Haal info uit de website link
   const { dienst, kapper } = useParams(); 
 
   // Initialiseren van de state-variabelen
+  // Maak opslagruimtes voor prijs, gekozen datum en drukke dagen
   const [price, setPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [busyDays, setBusyDays] = useState([]);
 
  
    // Gebruik useEffect om acties uit te voeren bij het laden van het component
+     // Doe iets als de pagina laadt
   useEffect(() => {
     const servicePrices = {
 
@@ -42,19 +49,19 @@ function AfspraakDetails() {
     };
 
     // Stel de prijs in op basis van de gekozen dienst
+     // Zet de juiste prijs
     setPrice(servicePrices[dienst] );
     
      // Roep een functie aan om de bezette afspraken op te halen
+       // Haal drukke tijden op
     async function fetchAppointments() {
-
-      // Bereid een Firestore-aanvraag voor om afspraken te krijgen bij een kapper/afspraak
+    // Bereid een Firestore-aanvraag voor om afspraken te krijgen bij een kapper/afspraak
       const afspraakCollection = collection(db, "afspraak");
       const q = query(afspraakCollection, where("kapper", "==", kapper));
       const querySnapshot = await getDocs(q);
-
+      const busyTimeslots = []; // Initialize an array to hold busy time slots
+      
       // Initialize an array to hold busy time slots
-      const busyTimeslots = [];
-
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         const appointmentDate = new Date(data.date.seconds * 1000);
@@ -68,20 +75,22 @@ function AfspraakDetails() {
       });
 
       // Update busyDays state using your custom logic (use busyTimeslots)
+      // Zet de drukke tijden
       setBusyDays(updateAvailableTimeslots(busyTimeslots));
     }
 
-    // Invoke fetchAppointments
+ // Voer de functie uit
     fetchAppointments();
   }, [dienst, kapper]);
 
-  // Custom function to update available time slots
+   // Update beschikbare tijden
   const updateAvailableTimeslots = (busyTimeslots) => {
     const busyTimes = busyTimeslots.map(slot => slot.start);
     return busyTimes;
   };
   
     // Deze functie wordt aangeroepen om een afspraak te maken zonder registratie
+      // Afspraak maken zonder aan te melden
   const handleAfspraakZonderRegistratie = async () => {
     
      // Controleer of het gekozen tijdstip al bezet is
@@ -91,7 +100,7 @@ function AfspraakDetails() {
       busyDate.toDateString() === selectedDate.toDateString()
     );
     
-    // Als het tijdstip bezet is, geef een waarschuwing
+   // Laat weten als het tijdstip niet vrij is
     if (isBusy) {
       alert("Dit tijdslot is al bezet. Kies een andere tijd.");
       return;
@@ -108,7 +117,7 @@ function AfspraakDetails() {
   
   
 
-    // Sla de details van de afspraak op
+   // Bewaar afspraakdetails/gegevens
     setAfspraakDetails({
       price: price,
       dienst: dienst,
@@ -119,6 +128,7 @@ function AfspraakDetails() {
     });
 
      // Probeer de afspraak toe te voegen aan Firestore
+      // Probeer de afspraak op te slaan
     try {
       const user = auth.currentUser;
       const userId = user ? user.uid : null;
@@ -167,7 +177,7 @@ function AfspraakDetails() {
     navigate('/login');
   };
 
-
+    // Wat de gebruiker ziet
   return (
      // Het daadwerkelijke JSX-component dat wordt weergegeven
     <div className="afspraak-details-container">
