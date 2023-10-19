@@ -200,6 +200,7 @@ function AfspraakDetails() {
         excludeTimes={busyDays}
         minTime={new Date().setHours(9, 0, 0)}
         maxTime={new Date().setHours(19, 0, 0)}
+        readOnly
       />
 
       <button className="button" onClick={handleLogin}>Inloggen als bestaande klant</button>

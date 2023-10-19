@@ -6,12 +6,13 @@ const AfspraakContext = createContext();
 
 // Exporteer een aangepaste hook die useContext gebruikt om de afspraakcontext op te halen
 // Deze hook is bedoeld om het gemakkelijk te maken voor andere componenten om toegang te krijgen tot de afspraakcontext.
+// Maak een 'doosje' waarin afspraak-info kan
 export function useAfspraak() {
   return useContext(AfspraakContext);
 }
 
-// Exporteer de AfspraakProvider-component die de AfspraakContext.Provider gebruikt
-// De Provider maakt het mogelijk om state te delen met andere componenten
+// Maak een speciale functie om makkelijk afspraak-info op te halen
+// Maak een onderdeel om afspraak-info te delen met andere onderdelen
 export function AfspraakProvider({ children }) {
   // Definieer een stukje lokale state (afspraakDetails) en de functie om deze te wijzigen (setAfspraakDetails)
   // De initiële waarde is null.
