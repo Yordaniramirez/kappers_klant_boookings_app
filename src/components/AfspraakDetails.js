@@ -177,6 +177,12 @@ function AfspraakDetails() {
     navigate('/login');
   };
 
+  const CustomInput = ({ value, onClick }) => (
+    <button className="custom-date-input" onClick={onClick}>
+      {value}
+    </button>
+  );
+
     // Wat de gebruiker ziet
   return (
      // Het daadwerkelijke JSX-component dat wordt weergegeven
@@ -200,7 +206,8 @@ function AfspraakDetails() {
         excludeTimes={busyDays}
         minTime={new Date().setHours(9, 0, 0)}
         maxTime={new Date().setHours(19, 0, 0)}
-        readOnly
+        customInput={<CustomInput />} 
+       
       />
 
       <button className="button" onClick={handleLogin}>Inloggen als bestaande klant</button>
