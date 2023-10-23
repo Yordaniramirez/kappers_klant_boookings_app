@@ -33,14 +33,21 @@ function HomePage() {
 
   return (
     <>
-     
+    <div className="App-header">
+      <div className="title-container">
+        <h1 className="category-title">Kies Categorie</h1>
+      </div>
+      <header className="category-container">
       <CategoryCard image={manImage} title="Man" onClick={() => handleCategoryClick('Man')} />
       <CategoryCard image={vrouwImage} title="Vrouw" onClick={() => handleCategoryClick('Vrouw')} />
       <CategoryCard image={kinderenImage} title="Kinderen" onClick={() => handleCategoryClick('Kinderen')} />
+      </header>
       <div className="link-container">
         <Link to="/login" className="special-link">Afspraak Beheren</Link>
         <Link to="/kapper-afspraken" className="special-link">Alleen voor kappers</Link>
       </div>
+      </div>
+      
     </>
     
   );
@@ -55,6 +62,7 @@ function App() {
        <AfspraakProvider>
       <div className="App-header">
         <header className="category-container">
+          
           <Routes>
             <Route path="/diensten/:category" element={<DienstenPage setSelectedDienst={setSelectedDienst} />} />
             <Route path="/kapper-kiezen" element={<KapperKiezenPage selectedDienst={selectedDienst} />} />
